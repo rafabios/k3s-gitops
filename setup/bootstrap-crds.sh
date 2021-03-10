@@ -11,3 +11,6 @@ echo "Applying cert-manager CRD"
 
 echo "Applying registry-creds CRD"
 #kubectl apply -f "${REPO_ROOT}"/kube-system/registry-creds/registry-creds-crd.yaml
+
+echo "Applying sealed secrets"
+kubectl apply -f "${REPO_ROOT}"/kube-system/sealed-secrets/sealed-secrets-crds.yaml
