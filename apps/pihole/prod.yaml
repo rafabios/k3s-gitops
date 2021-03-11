@@ -24,13 +24,11 @@ spec:
             - address=/k3s/192.168.1.15   
         persistentVolumeClaim:
           enabled: false
-
         serviceWeb:
           loadBalancerIP: 192.168.1.240
           annotations:
             metallb.universe.tf/allow-shared-ip: pihole-svc
           type: LoadBalancer
-
         serviceDns:
           loadBalancerIP: 192.168.1.241
           annotations:
