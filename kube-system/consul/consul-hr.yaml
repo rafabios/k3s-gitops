@@ -79,7 +79,7 @@ spec:
     customLivenessProbe: {}
     customReadinessProbe: {}
     persistence:
-      enabled: true
+      enabled: false
       annotations: {}
       accessModes:
         - ReadWriteOnce
