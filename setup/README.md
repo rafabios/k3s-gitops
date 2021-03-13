@@ -8,7 +8,7 @@ I use a .env file which is encrypted using git-crypt and is referenced in any sc
 
 ### k3s Node Setup
 
-Check out [homelab-infrastructure/k3s](https://github.com/WRMilling/homelab-infrastructure/tree/master/k3s) for information on creating the physical/virtual cluster. Make sure you have `kubectl` setup on the machine you run these steps on and that it has access to the cluster. This requires either `$KUBECONFIG` being set properly or `~/.kube/config` being populated.
+```setup/install-tools-setup.sh```
 
 ### Bootstrapping the Cluster
 
