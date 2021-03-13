@@ -71,7 +71,7 @@ spec:
         enabled: true
         size: 1Gi
         annotations:
-          metallb.universe.tf/allow-shared-ip: dependency-track
+          metallb.universe.tf/allow-shared-ip: dependency-track-apiserver
         storageClass: local-path
       podSecurityContext:
         fsGroup: 1000
@@ -87,7 +87,7 @@ spec:
       nodeSelector: {}
       tolerations: []
       affinity:
-        metallb.universe.tf/allow-shared-ip: dependency-track
+        metallb.universe.tf/allow-shared-ip: dependency-track-apiserver
       emptyDir:
         sizeLimit: 1Gi
       resources:
