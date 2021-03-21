@@ -1,0 +1,121 @@
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: dependency-track
+  namespace: apps
+spec:
+  releaseName: dependency-track
+  interval: 5m
+  chart:
+    spec:
+      chart: dependency-track
+      version: 1.0.2
+      sourceRef:
+        kind: HelmRepository
+        name: owasp-charts
+        namespace: flux-system
+      interval: 5m
+  values:
+    global:
+      imageRegistry: docker.io
+    frontend:
+      enabled: true
+      replicaCount: 1
+      image:
+        repository: dependencytrack/frontend
+        tag: 1.2.0
+        pullPolicy: IfNotPresent
+        imagePullSecrets: []
+      env:
+        - name: API_BASE_URL
+          value: ''
+      securityContext:
+        allowPrivilegeEscalation: false
+        runAsUser: 0
+      service:
+        type: LoadBalancer
+        port: 80
+        annotations: {}
+      nodeSelector: {}
+      tolerations: []
+      affinity: {}
+      emptyDir:
+        sizeLimit: 8Gi
+      resources:
+        requests:
+          cpu: 100m
+          memory: 128Mi
+        limits:
+          cpu: 1
+          memory: 512Mi
+      nameOverride: ''
+      fullnameOverride: ''
+      initContainers: []
+      serviceAccount:
+        create: true
+        name: frontend-serviceaccount
+      readinessProbe:
+        initialDelaySeconds: 60
+      livenessProbe:
+        initialDelaySeconds: 60
+    apiserver:
+      enabled: true
+      replicaCount: 1
+      image:
+        repository: dependencytrack/apiserver
+        tag: 4.1.0
+        imagePullSecrets: []
+        pullPolicy: IfNotPresent
+      env: []
+      persistentVolume:
+        enabled: true
+        size: 1Gi
+        annotations:
+          metallb.universe.tf/allow-shared-ip: dependency-track-apiserver
+        storageClass: local-path
+      podSecurityContext:
+        fsGroup: 1000
+      securityContext:
+        readOnlyRootFilesystem: true
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+      service:
+        type: LoadBalancer
+        port: 80
+        annotations: {}
+      nodeSelector: {}
+      tolerations: []
+      affinity:
+        metallb.universe.tf/allow-shared-ip: dependency-track-apiserver
+      emptyDir:
+        sizeLimit: 1Gi
+      resources:
+        requests:
+          cpu: 1
+          memory: 460Mi
+        limits:
+          cpu: 2
+          memory: 4Gi
+      nameOverride: ''
+      fullnameOverride: ''
+      initContainers: []
+      serviceAccount:
+        create: true
+        name: apiserver-serviceaccount
+      readinessProbe:
+        initialDelaySeconds: 60
+      livenessProbe:
+        initialDelaySeconds: 60
+    ingress:
+      enabled: false
+      tls:
+        enabled: false
+        secretName: ''
+      annotations: {}
+      host: chart-example.local
+    postgresql:
+      enabled: true
+      postgresqlUsername: deptrack
+      postgresqlPassword: deptrack
+      postgresqlDatabase: deptrack

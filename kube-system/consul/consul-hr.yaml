@@ -1,0 +1,145 @@
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: consul
+  namespace: kube-system
+spec:
+  interval: 5m
+  chart:
+    spec:
+      chart: consul
+      version: 9.2.7
+      sourceRef:
+        kind: HelmRepository
+        name: bitnami-charts
+        namespace: flux-system
+      interval: 5m
+  values:
+    kubeVersion:
+    image:
+      registry: docker.io
+      repository: bitnami/consul
+      tag: 1.9.4-debian-10-r0
+      pullPolicy: IfNotPresent
+      debug: false
+    clusterDomain: cluster.local
+    commonAnnotations: {}
+    commonLabels: {}
+    hostAliases: []
+    datacenterName: dc1
+    domain: consul
+    raftMultiplier: '1'
+    configuration: ''
+    localConfig: ''
+    command: []
+    args: []
+    extraEnvVars: []
+    extraEnvVarsCM: null
+    extraEnvVarsSecret: null
+    extraVolumes: []
+    extraVolumeMounts: []
+    initContainers: []
+    sidecars: []
+    replicaCount: 1
+    updateStrategy: RollingUpdate
+    podManagementPolicy: Parallel
+    podAnnotations: {}
+    podAffinityPreset: ''
+    podAntiAffinityPreset: soft
+    nodeAffinityPreset:
+      type: ''
+      key: ''
+      values: []
+    affinity: {}
+    nodeSelector: {}
+    tolerations: []
+    podSecurityContext:
+      enabled: true
+      fsGroup: 1001
+    containerSecurityContext:
+      enabled: true
+      runAsUser: 1001
+    resources:
+      limits: {}
+      requests: {}
+    livenessProbe:
+      enabled: true
+      initialDelaySeconds: 30
+      periodSeconds: 10
+      timeoutSeconds: 5
+      failureThreshold: 6
+      successThreshold: 1
+    readinessProbe:
+      enabled: true
+      initialDelaySeconds: 5
+      periodSeconds: 10
+      timeoutSeconds: 5
+      failureThreshold: 6
+      successThreshold: 1
+    customLivenessProbe: {}
+    customReadinessProbe: {}
+    persistence:
+      enabled: false
+      annotations: {}
+      accessModes:
+        - ReadWriteOnce
+      size: 1Gi
+    volumePermissions:
+      enabled: false
+      image:
+        registry: docker.io
+        repository: bitnami/bitnami-shell
+        tag: '10'
+        pullPolicy: Always
+      resources:
+        limits: {}
+        requests: {}
+    pdb:
+      create: false
+      minAvailable: 1
+    containerPorts:
+      http: 8500
+      dns: 8600
+      rpc: 8400
+      rpcServer: 8300
+      serfLAN: 8301
+    service:
+      enabled: true
+      port: 80
+      type: LoadBalancer
+      nodePort: ''
+      annotations: {}
+    ingress:
+      enabled: false
+      path: /
+      apiVersion: null
+      pathType: ImplementationSpecific
+      certManager: false
+      hostname: consul-ui.local
+      annotations: {}
+      tls: false
+      secrets: []
+    metrics:
+      enabled: false
+      image:
+        registry: docker.io
+        repository: bitnami/consul-exporter
+        tag: 0.7.1-debian-10-r213
+        pullPolicy: IfNotPresent
+      service:
+        type: ClusterIP
+        annotations:
+          prometheus.io/scrape: 'true'
+          prometheus.io/port: '9107'
+      podAnnotations:
+        prometheus.io/scrape: 'true'
+        prometheus.io/port: '9107'
+      resources:
+        limits: {}
+        requests: {}
+      serviceMonitor:
+        enabled: false
+        interval: 30s
+        honorLabels: false
+        additionalLabels: {}
+    extraDeploy: []
