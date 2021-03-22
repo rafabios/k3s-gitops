@@ -18,7 +18,8 @@ spec:
         namespace: flux-system
       interval: 5m
   values:
-    functionNamespace: openfaas-fn  # Default namespace for functions
+    functionNamespace: apps
+    # Default namespace for functions
 
     # See https://www.openfaas.com/support for more
     openfaasPRO: false
