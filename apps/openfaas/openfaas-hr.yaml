@@ -41,8 +41,8 @@ spec:
     # create pod security policies for OpenFaaS control plane
     # https://kubernetes.io/docs/concepts/policy/pod-security-policy/
     psp: false
-    securityContext: true
-    basic_auth: true
+    securityContext: false
+    basic_auth: false
     generateBasicAuth: false
 
     # image pull policy for openfaas components, can change to `IfNotPresent` in offline env
