@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: tiddlywiki
+  name: tiddlywiki
+  namespace: apps
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: tiddlywiki
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: tiddlywiki
+    spec:
+      containers:
+      - image: vemcompy/tiddlywiki:latest
+        name: tiddlywiki
+        ports:
+        - containerPort: 8080        
+        resources: {}
