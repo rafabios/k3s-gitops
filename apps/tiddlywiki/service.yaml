@@ -5,6 +5,7 @@ metadata:
   labels:
     app: tiddlywiki
   name: tiddlywiki
+  namespace: apps
 spec:
   ports:
   - name: "8080"
