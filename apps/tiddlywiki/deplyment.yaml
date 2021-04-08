@@ -19,8 +19,26 @@ spec:
         app: tiddlywiki
     spec:
       containers:
-      - image: vemcompy/tiddlywiki:latest
+      - env:
+        - name: wiki_name
+          value: vemcompy
+        - name: wiki_port
+          value: "8080"
+        - name: wiki_username
+          value: admin
+        - name: wiki_password
+          value: admin
+        - name: gzip
+          value: "yes"
+        - name: debug-level
+          value: none
+        image: vemcompy/tiddlywiki:latest
+        imagePullPolicy: Always
         name: tiddlywiki
-        ports:
-        - containerPort: 8080        
-        resources: {}
+        volumeMounts:
+        - mountPath: /app/vemcompy
+          name: volume
+      volumes:
+      - hostPath:
+          path: /data
+        name: volume
