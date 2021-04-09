@@ -20,8 +20,16 @@ spec:
   values:
         dnsmasq:
           customDnsEntries:
-            - address=/nas/192.168.15.250
-            - address=/k3s/192.168.1.15   
+            - address=/nas.vemcompy.net/192.168.15.250
+            - address=/k3s.vemcompy.net/192.168.1.15   
+            - address=/camila.vemcompy.net/192.168.1.117
+            - address=/notas.vemcompy.net/192.168.1.64
+            - address=/w10.vemcompy.net/192.168.1.126
+            - address=/w7.vemcompy.net/192.168.1.126
+            - address=/xcp-node.vemcompy.net/192.168.1.102
+            - address=/xcp.vemcompy.net/192.168.1.106
+            - address=/burgundy.vemcompy.net/192.168.1.119
+            - address=/rp.vemcompy.net/192.168.15.17
         persistentVolumeClaim:
           enabled: false
         serviceWeb:
