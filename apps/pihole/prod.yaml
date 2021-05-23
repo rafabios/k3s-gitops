@@ -30,6 +30,7 @@ spec:
             - address=/xcp.vemcompy.net/192.168.1.106
             - address=/burgundy.vemcompy.net/192.168.1.119
             - address=/rp.vemcompy.net/192.168.15.17
+            - address=/fs.vemcompy.net/192.168.1.63
         persistentVolumeClaim:
           enabled: false
         serviceWeb:
